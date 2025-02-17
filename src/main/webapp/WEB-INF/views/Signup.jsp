@@ -1,98 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
+    <title>Create Free Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        .container {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            width: 320px;
-            text-align: center;
-        }
-
-        h2 {
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        input:focus {
-            border-color: #007BFF;
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-        }
-
-        button {
-            width: 90%;
-            padding: 12px;
-            margin-top: 10px;
-            background: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #0056b3;
-        }
-
-        .login-link {
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
-        .login-link a {
-            color: #007BFF;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Sign Up</h2>
-        <form action="saveUser" method="post">
-            <input type="text" name="firstName" placeholder="First Name" required>
-            <input type="text" name="lastName" placeholder="Last Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-            <input type="tel" name="contactNumber" placeholder="Contact Number" required>
-            <button type="submit">Sign Up</button>
-        </form>
-        <p class="login-link">Already have an account? <a href="login">Login</a></p>
+<div class="font-[sans-serif] p-4 mt-6">
+    <div class="flex flex-col justify-center">
+        <div class="max-w-md w-full mx-auto shadow-[0_2px_10px_-2px_rgba(195,169,50,0.5)] p-8 relative mt-12">
+            <div class="bg-white w-24 h-24 border-[8px] p-4 absolute left-0 right-0 mx-auto -top-12 rounded-full overflow-hidden">
+                <a href="javascript:void(0)">
+                    <img src="https://readymadeui.com/readymadeui-short.svg" alt="logo" class='w-full inline-block' />
+                </a>
+            </div>
+
+            <form class="mt-12" action="saveUser" method="post"> <%-- Add action and method --%>
+                <h3 class="text-xl font-bold text-blue-600 mb-6 text-center">Create free account</h3>
+                <div class="space-y-4">
+                    <input name="name" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter name" required/> <%-- Added required --%>
+                    <input name="emailId" type="email" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter email" required/> <%-- Added required and type="email" --%>
+                    <input name="password" type="password" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter password" required/> <%-- Added required --%>
+                    <input name="phone" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter Mobile Number" required/> <%-- Added required --%>
+                    <select name="role" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">
+                    	<option value="USER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">User</option>
+                    	<option value="SERVICE-PROVIDER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">Service Provider</option>
+                    </select>
+                   <!--  <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 border-gray-300 rounded" />
+                        <label for="remember-me" class="ml-3 block text-sm text-gray-800">
+                            I accept the <a href="javascript:void(0);" class="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions</a>
+                        </label>
+                    </div>
+                     -->
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full py-3 px-4 text-sm tracking-wide text-white bg-black hover:bg-[#111] focus:outline-none"> <%-- Changed to submit --%>
+                        Create an account
+                    </button>
+                </div>
+                <p class="text-sm mt-6 text-center text-gray-800">Already have an account? <a href="login" class="text-blue-600 font-semibold hover:underline ml-1">Login here</a></p>
+            </form>
+        </div>
     </div>
+</div>
 
 </body>
 </html>

@@ -1,10 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
-    <style>
+<meta charset="ISO-8859-1">
+<title>Update Password</title>
+
+<style>
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -17,7 +19,7 @@
 
         .container {
             background: white;
-            padding: 35px;
+            padding: 25px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             width: 320px;
@@ -80,15 +82,16 @@
 </head>
 <body>
 
-    <div class="container">
-        <h2>Otp Send</h2>
-        
-        <form action="sendotp" method="post">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit">Send Otp</button>
+ <div class="container">
+        <h2>Update Password</h2>
+        <form action="updatePassword" method="post">
+            <input type="email" name="email" placeholder="Enter Email Address" required>
+            <input type="text" name="otp" placeholder="Enter the Otp" required="required"/>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <input type="password" name="cpassword" placeholder="Enter Confirm Password" required="required" />
+            <button type="submit">Login</button>
         </form>
         <p class="link"><a href="/login">Back to Login</a></p>
-    </div>
-
+        </div>
 </body>
 </html>
