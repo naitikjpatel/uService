@@ -28,7 +28,7 @@
     </style>
 </head>
 <body class="bg-gray-100">
-
+		
 	    <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
@@ -41,6 +41,8 @@
                 <li><a href="aboutus" class="text-white hover:text-gray-400">About</a></li>
                 <li><a href="#" class="text-white hover:text-gray-400">Services</a></li>
                 <li><a href="#" class="text-white hover:text-gray-400">Contact</a></li>
+                <li><a href="login" class="text-white hover:text-gray-400">Login</a></li>
+                
             </ul>
             
         </div>

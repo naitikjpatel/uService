@@ -18,7 +18,7 @@
                 </a>
             </div>
 
-            <form class="mt-12" action="loginuser" method="post"> <%-- Add action and method --%>
+            <form class="mt-12" action="loginuser" method="post" > <%-- Add action and method --%>
                 <h3 class="text-xl font-bold text-blue-600 mb-6 text-center">Create free account</h3>
                 <div class="space-y-4">
                     <input name="emailId" type="email" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter email" required/> <%-- Added required and type="email" --%>

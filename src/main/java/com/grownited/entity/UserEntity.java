@@ -3,6 +3,8 @@ package com.grownited.entity;
 import java.util.Date;
 import java.util.UUID;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.grownited.enumD.Role;
 import com.grownited.enumD.Status;
 
@@ -34,8 +36,9 @@ public class UserEntity {
 	Role role;
 	@Enumerated(EnumType.STRING)
 	Status status;
-	String profile_pic_url;
-	Date created_at;
-	Date updated_at;
+//	MultipartFile profilePic;
+	String profilePicUrl;
+	Date createdAt;
+	Date updatedAt;
 
 }
