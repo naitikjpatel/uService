@@ -84,7 +84,7 @@
         <h2>Otp Send</h2>
         
         <form action="sendotp" method="post">
-            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="email" name="emailId" placeholder="Enter your email" required>
             <button type="submit">Send Otp</button>
         </form>
         <p class="link"><a href="/login">Back to Login</a></p>

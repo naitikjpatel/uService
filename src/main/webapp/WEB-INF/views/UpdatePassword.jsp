@@ -85,7 +85,8 @@
  <div class="container">
         <h2>Update Password</h2>
         <form action="updatePassword" method="post">
-            <input type="email" name="email" placeholder="Enter Email Address" required>
+        	
+            <input type="email" name="emailId" value="<%=session.getAttribute("emailId") %>" placeholder="Enter Email Address" required>
             <input type="text" name="otp" placeholder="Enter the Otp" required="required"/>
             <input type="password" name="password" placeholder="Enter Password" required>
             <input type="password" name="cpassword" placeholder="Enter Confirm Password" required="required" />

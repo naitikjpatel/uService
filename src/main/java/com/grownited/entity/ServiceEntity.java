@@ -28,7 +28,7 @@ public class ServiceEntity {
 	Date updatedAt;
 	
 	//this both fk
-	UUID providerId;  
+	UUID providerId; 
 	
 	@ManyToOne
 	@JoinColumn(name = "categoryId" )  //bidirectional mapping 

@@ -1,4 +1,8 @@
 package com.grownited.enumD;
+
+import lombok.Data;
+
+
 public enum Role {
 
 	USER,
