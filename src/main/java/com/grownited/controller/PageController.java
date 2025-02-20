@@ -11,9 +11,9 @@ public class PageController {
 
 	
 //	opening home page
-	@GetMapping("/home")
+	@GetMapping(value = {"/", "/home"})
 	public String openHomePage() {
-		System.out.println("Home page is called");
+//		System.out.println("Home page is called");
 		return "Home";
 	}
 
@@ -21,6 +21,17 @@ public class PageController {
 	@GetMapping("/aboutus")
 	public String aboutUsPage() {
 		return "About";
+	}
+	
+	@GetMapping("/contactus")
+	public String openContactUsPage() {
+		return "ContactUs";
+	}
+	
+	
+	@GetMapping("/adminpanel")
+	public String openAdminPanel() {
+		return "AdminPanel";
 	}
 	
 	

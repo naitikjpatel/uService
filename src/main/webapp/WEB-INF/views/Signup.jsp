@@ -27,11 +27,11 @@
                     <input name="phone" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter Mobile Number" required/> <%-- Added required --%>
                     <select name="role" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">
                     	<option value="USER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">User</option>
-                    	<option value="SERVICE-PROVIDER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">Service Provider</option>
+                    	<option value="SERVICE_PROVIDER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">Service Provider</option>
                     </select>
                     
                  <!--    <input type="file" name ="profilePic" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Choose Profile Pic" required/> -->
-                   <!--  <div class="flex items-center">
+                   <!--  <div class="flex items-center">	
                         <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 border-gray-300 rounded" />
                         <label for="remember-me" class="ml-3 block text-sm text-gray-800">
                             I accept the <a href="javascript:void(0);" class="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions</a>

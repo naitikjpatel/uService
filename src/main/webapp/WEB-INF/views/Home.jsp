@@ -1,3 +1,4 @@
+<%@page import="lombok.EqualsAndHashCode.Include"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,33 +28,17 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100">
 		
-	    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <div class="flex items-center">
-               <!-- <a href="/home"> <img src="<%= request.getContextPath() %>/images/logo.png" alt="Logo" class="h-10 w-10"></a> -->
-               <a href="/home" class="text-white hover:text-gray-400">Urban</a>
-                
-            </div>
-            <ul class="hidden md:flex space-x-4">
-                
-                <li><a href="aboutus" class="text-white hover:text-gray-400">About</a></li>
-                <li><a href="#" class="text-white hover:text-gray-400">Services</a></li>
-                <li><a href="#" class="text-white hover:text-gray-400">Contact</a></li>
-                <li><a href="login" class="text-white hover:text-gray-400">Login</a></li>
-                
-            </ul>
-            
-        </div>
-    </nav>
+	<jsp:include page="Navbar.jsp"></jsp:include>		
 	
     
     <!-- Hero Section -->
     <section class="bg-blue-600 text-white text-center py-32 fadeIn">
         <h1 class="text-4xl md:text-5xl font-bold">Welcome to Urban Services</h1>
         <p class="mt-4 text-lg md:text-xl">Your one-stop solution for all urban needs</p>
-        <a href="signup.jsp" class="mt-6 inline-block bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-all">Get Started</a>
+        <a href="/login" class="mt-6 inline-block bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-gray-100 transition-all">Get Started</a>
     </section>
 
     <!-- Features Section -->
@@ -94,5 +79,8 @@
         </div>
     </footer>
 
+<jsp:include page="Footer.jsp"></jsp:include>
 </body>
+
+
 </html>

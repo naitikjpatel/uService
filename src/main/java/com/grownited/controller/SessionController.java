@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.grownited.entity.UserEntity;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.FileUploadService;
+import com.grownited.service.MailService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class SessionController {
@@ -21,6 +24,9 @@ public class SessionController {
 	
 	@Autowired
 	private	UserRepository userRepository;
+	
+	@Autowired
+	private MailService mailService;
 	
 	//This open the singup page
 	@GetMapping(value = {"sp","signup"})
@@ -68,10 +74,13 @@ public class SessionController {
 	@PostMapping("saveUser")
 	public String saveUser(@ModelAttribute UserEntity userEntity) {
 		
+		System.out.println(userEntity.getRole());
 		userEntity.setCreatedAt(new Date());
 		userEntity.setUpdatedAt(new Date());
 		
 		userRepository.save(userEntity);
+		mailService.sendDemoMail(userEntity);
+		
 		return "redirect:/login";
 	}
 	
@@ -79,11 +88,13 @@ public class SessionController {
 	
 	//This is url to loginUser : for login
 	@PostMapping("loginuser")
-	public String loginUser(UserEntity userEntity) {
+	public String loginUser(UserEntity userEntity,HttpSession httpSession) {
 		userEntity= userRepository.findByEmailIdAndPassword(userEntity.getEmailId(), userEntity.getPassword());
 		if(userEntity!=null)
 		return "Home";
 		else
+			httpSession.setAttribute("user", userEntity);
+			
 			return "redirect:/login";
 	}
 	

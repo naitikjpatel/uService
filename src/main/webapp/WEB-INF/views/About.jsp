@@ -10,17 +10,7 @@
 </head>
 <body class="bg-gray-100">
 
-    <!-- Navigation Bar -->
-    <nav class="bg-blue-600 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-white font-bold text-2xl">Urban Service</a>
-            <ul class="flex space-x-6">
-                <li><a href="/" class="text-white">Home</a></li>
-                <li><a href="/aboutus" class="text-white">About Us</a></li>
-                <li><a href="/contact" class="text-white">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+   <jsp:include page="Navbar.jsp"></jsp:include>	
 
     <!-- About Us Section -->
     <section class="bg-white py-16">

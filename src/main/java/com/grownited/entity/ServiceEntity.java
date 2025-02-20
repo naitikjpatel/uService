@@ -31,7 +31,7 @@ public class ServiceEntity {
 	UUID providerId;  
 	
 	@ManyToOne
-	@JoinColumn(name = "categoryId")  //bidirectional mapping 
+	@JoinColumn(name = "categoryId" )  //bidirectional mapping 
 	CategoryEntity category;
 	
 	
