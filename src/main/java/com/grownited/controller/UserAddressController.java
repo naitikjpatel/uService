@@ -11,6 +11,7 @@ import com.grownited.entity.UserAddressEntity;
 import com.grownited.entity.UserEntity;
 import com.grownited.repository.UserAddressRepository;
 import com.grownited.repository.UserRepository;
+import com.grownited.service.GeocodingService;
 import com.grownited.service.UserAddressService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,14 +26,19 @@ public class UserAddressController {
 	private UserAddressService userAddressService;
 	@Autowired
 	private UserAddressRepository userAddressRepository;
+	@Autowired
+	private GeocodingService geocodingService;
 	
 	@PostMapping("/updateuseraddress")
 	public String updateUserAddress(UserAddressEntity addressEntity,HttpSession httpSession) {
 			UserEntity userEntity=(UserEntity)httpSession.getAttribute("user");
 			addressEntity.setUserEntity(userEntity);
 			//lat and long
+//			geocodingService.setLatLong(addressEntity);
+//			System.out.println(addressEntity);
+			
 			userAddressRepository.save(addressEntity);
 			
-		return "redirect:/profile";
+		return "redirect:/";
 	}
 }

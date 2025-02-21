@@ -1,6 +1,7 @@
 package com.grownited.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -19,11 +20,15 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserEntity {
 
@@ -45,5 +50,9 @@ public class UserEntity {
 	
 	@OneToOne(mappedBy = "userEntity")
 	UserAddressEntity userAddressEntity;
+	
+	@OneToMany(mappedBy = "userEntity")
+	@ToString.Exclude
+	List<ServiceEntity> serviceEntities;
 
 }

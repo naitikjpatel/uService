@@ -93,7 +93,15 @@ public class SessionController {
 		if (userEntity != null) {
 			httpSession.setAttribute("user", userEntity);
 			httpSession.setMaxInactiveInterval(259200);
-			return "redirect:/home";
+			 switch (userEntity.getRole()) {
+	            case ADMIN:
+	                return "redirect:/admin/dashboard";
+	            case SERVICE_PROVIDER:
+	                return "redirect:/service-provider/dashboard";
+	            default:
+	                return "redirect:/home";
+	        }
+			
 		} else
 			return "redirect:/login";
 	}

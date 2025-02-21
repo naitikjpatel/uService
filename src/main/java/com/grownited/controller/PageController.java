@@ -29,7 +29,7 @@ public class PageController {
 	}
 	
 	
-	@GetMapping("/adminpanel")
+	@GetMapping("/admin/dashboard")
 	public String openAdminPanel() {
 		return "AdminPanel";
 	}

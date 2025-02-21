@@ -43,12 +43,14 @@ boolean isServiceProvider = entity.getRole() == Role.SERVICE_PROVIDER;
 			<%
 			}
 			%>
-
-
+		
+		
 			<label for="address" class="block text-gray-700 font-semibold">Address:</label>
+
 			<input type="text" id="address" name="addressLine"
-				class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-				>
+				value="<%=(entity.getUserAddressEntity() != null) ? entity.getUserAddressEntity().getAddressLine() : ""%>"
+				class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+
 
 			<button type="submit"
 				class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 w-full mt-3">Update
@@ -60,7 +62,7 @@ boolean isServiceProvider = entity.getRole() == Role.SERVICE_PROVIDER;
 		if (isServiceProvider) {
 		%>
 		<div class="mt-4">
-			<a href="/add-service"
+			<a href="/newservice"
 				class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 block text-center">Add
 				Service</a>
 		</div>

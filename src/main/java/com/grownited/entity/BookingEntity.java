@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-
+@Table(name = "Bookings")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BookingEntity {

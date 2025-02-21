@@ -1,6 +1,21 @@
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="com.grownited.entity.UserAddressEntity"%>
+<%@page import="com.grownited.enumD.Role"%>
+<%@page import="com.grownited.entity.UserEntity"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%
+UserEntity entity = (UserEntity) session.getAttribute("user");
+
+if (entity == null) {
+	response.sendRedirect("/login"); // Redirect to login if user is not logged in
+	return;
+}
+
+// Check if the user is a service provider
+
+boolean isServiceProvider = entity.getRole() == Role.SERVICE_PROVIDER;
+%>
     <%@page import="jakarta.validation.constraints.AssertFalse.List"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +36,7 @@ services.add(new Service("Cleaner", "House cleaning services with expert cleanin
 
  -->
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4">
+  <!--   <nav class="bg-blue-600 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-white font-bold text-2xl">Urban Service</a>
             <ul class="flex space-x-6">
@@ -32,7 +47,9 @@ services.add(new Service("Cleaner", "House cleaning services with expert cleanin
             </ul>
         </div>
     </nav>
-
+ -->
+ 
+			<jsp:include page="Navbar.jsp"></jsp:include>
     <!-- Services Section -->
     <section class="bg-white py-16">
         <div class="container mx-auto text-center">

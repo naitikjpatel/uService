@@ -1,7 +1,11 @@
 package com.grownited.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+
+import com.grownited.enumD.Role;
+import com.grownited.enumD.Status;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,16 +15,20 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "services")
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ServiceEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(generator = "UUID")
 	UUID serviceId;
 	String serviceName;
 	String description;
@@ -28,7 +36,12 @@ public class ServiceEntity {
 	Date updatedAt;
 	
 	//this both fk
-	UUID providerId; 
+//	UUID providerId;
+	
+	@ManyToOne
+	@JoinColumn(name="providerId")
+	@ToString.Exclude
+	UserEntity userEntity;
 	
 	@ManyToOne
 	@JoinColumn(name = "categoryId" )  //bidirectional mapping 
