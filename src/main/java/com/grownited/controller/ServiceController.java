@@ -61,4 +61,55 @@ public class ServiceController {
 	}
 	
 	//list of services
+	
+	
+	//here i want a serivces by the categories and providerId also
+	
+	
+	
+	@GetMapping("/get-services-by-categoryId")
+	public String getAllServiceByCategoryId(@RequestParam("categoryId") UUID categoryId,Model model) {
+		List<ServiceEntity> serviceList=servicesRepository.findByCategory_CategoryId(categoryId);
+		return "SeriveList";
+	}
+	
+	
+	@GetMapping("/get-serivces-by-providerId")
+	public String getAllServicesOfProvider(@RequestParam("providerId") UUID userId,Model model) {
+		List<ServiceEntity> serviceList=servicesRepository.findByUserEntity_UserId(userId);
+		return "";
+	}
+	
+	/* This method for the admin */
+
+	@GetMapping("/servicelist")
+	public String getAllService(Model model) {
+		List<ServiceEntity> serviceList=servicesRepository.findAll();
+		model.addAttribute("services", serviceList);
+		return "ServiceList";
+	}
+	
+	
+	@GetMapping("/deleteservice")
+	public String deleteServiceById(@RequestParam("id") UUID serviceId) {
+		Optional<ServiceEntity> op=servicesRepository.findById(serviceId);
+		if(op.isEmpty()) {
+			return "redirect:/login";
+		}
+		servicesRepository.delete(op.get());
+		return "redirect:/servicelist";
+	}
+	
+	@GetMapping("/editservice")
+	public String editService(@RequestParam("id") UUID serviceId,Model model) {
+		Optional<ServiceEntity> op=servicesRepository.findById(serviceId);
+		ServiceEntity serviceEntity=op.get();
+		if(op.isEmpty()) {
+			return "redirect:/login";
+		}
+		model.addAttribute("service",serviceEntity);
+		return "EditService";
+		
+	}
+	
 }

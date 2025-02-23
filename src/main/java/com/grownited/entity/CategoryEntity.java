@@ -29,6 +29,6 @@ public class CategoryEntity {
 //	MultipartFile categoryPic;
 //	String categoryPicUrl;
 	
-	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<ServiceEntity> services;
 }

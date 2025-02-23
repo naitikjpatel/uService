@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.grownited.dto.ForgotPasswordDto;
 import com.grownited.entity.UserEntity;
+import com.grownited.enumD.Status;
 import com.grownited.exception.ResourceNotFoundException;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.FileUploadService;
@@ -79,7 +80,7 @@ public class SessionController {
 		System.out.println(userEntity.getRole());
 		userEntity.setCreatedAt(new Date());
 		userEntity.setUpdatedAt(new Date());
-
+		userEntity.setStatus(Status.ACTIVE);
 		userRepository.save(userEntity);
 		mailService.sendDemoMail(userEntity);
 
@@ -88,23 +89,55 @@ public class SessionController {
 
 	// This is url to loginUser : for login
 	@PostMapping("loginuser")
-	public String loginUser(UserEntity userEntity, HttpSession httpSession) {
-		userEntity = userRepository.findByEmailIdAndPassword(userEntity.getEmailId(), userEntity.getPassword());
-		if (userEntity != null) {
-			httpSession.setAttribute("user", userEntity);
-			httpSession.setMaxInactiveInterval(259200);
-			 switch (userEntity.getRole()) {
-	            case ADMIN:
-	                return "redirect:/admin/dashboard";
-	            case SERVICE_PROVIDER:
-	                return "redirect:/service-provider/dashboard";
-	            default:
-	                return "redirect:/home";
-	        }
-			
-		} else
-			return "redirect:/login";
+	public String loginUser(UserEntity userEntity, HttpSession httpSession,Model model) {
+	    System.out.println("Login user checked");
+
+	    UserEntity foundUser = userRepository.findByEmailIdAndPassword(userEntity.getEmailId(), userEntity.getPassword());
+	    
+	    if (foundUser == null) {
+	        System.out.println("Invalid credentials");
+	        return "redirect:/login";  // Show error message
+	    }
+
+	    System.out.println("Credentials are correct");
+	    httpSession.setAttribute("userId", foundUser.getUserId());
+	    httpSession.setAttribute("userRole", foundUser.getRole());
+	    foundUser.setPassword("");
+	    System.out.println("User ID stored in session: " + foundUser.getUserId());
+	    System.out.println("User Role stored in session: " + foundUser.getRole());
+
+	    switch (foundUser.getRole()) {
+	        case ADMIN:
+	            return "redirect:/admin/dashboard";
+	        case SERVICE_PROVIDER:
+	            return "redirect:/service-provider/panel";
+	        default:
+	        	
+	        	model.addAttribute("user", foundUser);
+	            return "redirect:/loginuserhome";
+	    }
 	}
+
+//	public String loginUser(UserEntity userEntity, HttpSession httpSession) {
+//		System.out.println("login user checked");
+//		userEntity = userRepository.findByEmailIdAndPassword(userEntity.getEmailId(), userEntity.getPassword());
+//		if (userEntity != null) {
+//			System.out.println("crediantial is correct");
+//			httpSession.setAttribute("userId", userEntity.getUserId());
+//			httpSession.setAttribute("userRole", userEntity.getRole());
+//			 switch (userEntity.getRole()) {
+//	            case ADMIN:
+//	                return "redirect:/admin/dashboard";
+//	            case SERVICE_PROVIDER:
+//	                return "redirect:/service-provider/dashboard";
+//	            default:
+//	            	System.out.println("defaul case");
+//	                return "redirect:/loginuserhome";
+//	        }
+//			
+//		} else
+//			return "redirect:/login";
+//	}
 
 	// Update Password url
 	@PostMapping("/updatePassword")

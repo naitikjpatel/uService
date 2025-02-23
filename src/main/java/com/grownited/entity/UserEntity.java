@@ -9,10 +9,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.grownited.enumD.Role;
 import com.grownited.enumD.Status;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -48,10 +49,10 @@ public class UserEntity {
 	Date createdAt;
 	Date updatedAt;
 	
-	@OneToOne(mappedBy = "userEntity")
+	@OneToOne(mappedBy = "userEntity" , cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	UserAddressEntity userAddressEntity;
 	
-	@OneToMany(mappedBy = "userEntity")
+	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL, orphanRemoval = true)
 	@ToString.Exclude
 	List<ServiceEntity> serviceEntities;
 

@@ -39,12 +39,12 @@ public class ServiceEntity {
 //	UUID providerId;
 	
 	@ManyToOne
-	@JoinColumn(name="providerId")
+	@JoinColumn(name="providerId", referencedColumnName ="userId")  //referancedcolumnnmae is need to match with the userEntity primary key
 	@ToString.Exclude
 	UserEntity userEntity;
 	
 	@ManyToOne
-	@JoinColumn(name = "categoryId" )  //bidirectional mapping 
+	@JoinColumn(name = "categoryId",referencedColumnName = "categoryId" )  //bidirectional mapping 
 	CategoryEntity category;
 	
 	

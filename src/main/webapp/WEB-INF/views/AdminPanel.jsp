@@ -8,42 +8,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
-    <div class="flex h-screen">
+    
+   <div class="flex h-screen">
+    <!-- Sidebar -->
     <div class="w-64 bg-blue-900 text-white p-5 space-y-6">
-    <h2 class="text-2xl font-bold">Admin Panel</h2>
-    <nav>
-        <a href="dashboard.jsp" class="block py-2 px-4 hover:bg-blue-700 rounded">Dashboard</a>
-        <a href="users.jsp" class="block py-2 px-4 hover:bg-blue-700 rounded">Users</a>
-        <a href="providers.jsp" class="block py-2 px-4 hover:bg-blue-700 rounded">Service Providers</a>
-        <a href="bookings.jsp" class="block py-2 px-4 hover:bg-blue-700 rounded">Bookings</a>
-        <a href="reports.jsp" class="block py-2 px-4 hover:bg-blue-700 rounded">Reports</a>
-    </nav>
-</div>
+        <h2 class="text-2xl font-bold">Admin Panel</h2>
+        <nav>
+            <a href="/admindashboard" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Dashboard</a>
+            <a href="/userlist" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Users</a>
+            <a href="providers.jsp" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Service Providers</a>
+            <a href="bookings.jsp" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Bookings</a>
+            <a href="/listcategory" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Categories</a>
+            <a href="reports.jsp" target="contentFrame" class="block py-2 px-4 hover:bg-blue-700 rounded">Report</a>
+            
+            <a href="/logout" class="block py-2 px-4 bg-red-600 hover:bg-red-700 rounded mt-4 text-center">Logout</a>
+        </nav>
+    </div>
 
-
-<div class="flex-1 p-10">
-    <h1 class="text-3xl font-bold mb-4">Dashboard</h1>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white p-5 rounded shadow">
-            <h2 class="text-xl font-semibold">Total Users</h2>
-            <p class="text-2xl font-bold"><%= request.getAttribute("totalUsers") %></p>
-        </div>
-        <div class="bg-white p-5 rounded shadow">
-            <h2 class="text-xl font-semibold">Total Bookings</h2>
-            <p class="text-2xl font-bold"><%= request.getAttribute("totalBookings") %></p>
-        </div>
-        <div class="bg-white p-5 rounded shadow">
-            <h2 class="text-xl font-semibold">Total Earnings</h2>
-            <p class="text-2xl font-bold">$<%= request.getAttribute("totalEarnings") %></p>
-        </div>
+    <!-- Main Content (Iframe) -->
+    <div class="flex-1 p-10">
+        <iframe name="contentFrame" src="/admindashboard" class="w-full h-[90vh] border-none"></iframe>
     </div>
 </div>
-
-
-    
-    
-    </div>
-    
+   
     
 
 </body>

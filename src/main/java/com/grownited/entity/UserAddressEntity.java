@@ -31,6 +31,6 @@ public class UserAddressEntity {
 	Double longtitude;
 
 	@OneToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
 	UserEntity userEntity;
 }
