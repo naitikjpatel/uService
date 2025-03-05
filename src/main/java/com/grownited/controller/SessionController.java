@@ -1,6 +1,7 @@
 package com.grownited.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -12,9 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.grownited.dto.ForgotPasswordDto;
+import com.grownited.entity.CategoryEntity;
 import com.grownited.entity.UserEntity;
 import com.grownited.enumD.Status;
 import com.grownited.exception.ResourceNotFoundException;
+import com.grownited.repository.CategoryRepository;
+import com.grownited.repository.ServicesRepository;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.FileUploadService;
 import com.grownited.service.MailService;
@@ -29,6 +33,12 @@ public class SessionController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private ServicesRepository servicesRepository;
 
 	@Autowired
 	private MailService mailService;
@@ -112,9 +122,10 @@ public class SessionController {
 	        case SERVICE_PROVIDER:
 	            return "redirect:/service-provider/panel";
 	        default:
+	        	//category pass
 	        	
-	        	model.addAttribute("user", foundUser);
-	            return "redirect:/loginuserhome";
+//	        	return "redirect:/loginuserhome";  // This is the problem
+	        	return "redirect:/loginuserhome";
 	    }
 	}
 

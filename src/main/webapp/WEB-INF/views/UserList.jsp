@@ -32,7 +32,7 @@
 				<option value="">Filter by Role</option>
 				<option value="Admin">Admin</option>
 				<option value="User">User</option>
-				<option value="Service Provider">Service Provider</option>
+				<option value="Service_Provider">Service Provider</option>
 			</select>
 		</div>
 

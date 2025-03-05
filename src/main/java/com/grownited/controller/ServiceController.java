@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.grownited.entity.CategoryEntity;
+import com.grownited.entity.PackageEntity;
 import com.grownited.entity.ServiceEntity;
 import com.grownited.entity.UserEntity;
+import com.grownited.repository.PackageRepository;
 import com.grownited.repository.ServicesRepository;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.CategoryService;
@@ -31,6 +33,9 @@ public class ServiceController {
 	@Autowired
 	private ServicesRepository servicesRepository;
 	
+	@Autowired
+	private PackageRepository packageRepository;
+	
 	@GetMapping("newservice")
 	public String openService(Model model) {
 		List<CategoryEntity> categoryList	=categoryService.getAllCategory();
@@ -38,7 +43,7 @@ public class ServiceController {
 		return "AddService";
 	}
 	@PostMapping("addservice")
-	public String addService(ServiceEntity serviceEntity,@RequestParam UUID providerId,@RequestParam UUID categoryId) {
+	public String addService(ServiceEntity serviceEntity,PackageEntity packageEntity, @RequestParam UUID providerId,@RequestParam UUID categoryId) {
 		//set date 
 		serviceEntity.setCreatedAt(new Date());
 		serviceEntity.setUpdatedAt(new Date());
@@ -55,7 +60,16 @@ public class ServiceController {
 		
 		//set fk
 		serviceEntity.setCategory(categoryEntity);
+		
+		
+		//now write a code for the packageentity
+		packageEntity.setCategory(categoryEntity);
+		packageEntity.setServiceEntity(serviceEntity);
+		packageEntity.setServiceProvider(op.get());
+		
+		
 		servicesRepository.save(serviceEntity);
+		packageRepository.save(packageEntity);
 		
 		return "redirect:/newservice";
 	}
@@ -64,7 +78,6 @@ public class ServiceController {
 	
 	
 	//here i want a serivces by the categories and providerId also
-	
 	
 	
 	@GetMapping("/get-services-by-categoryId")
@@ -112,4 +125,32 @@ public class ServiceController {
 		
 	}
 	
+	//update service
+	@GetMapping("/updateservice")
+	public String updateService(ServiceEntity serviceEntity,Model model) {
+		Optional<ServiceEntity> op=servicesRepository.findById(serviceEntity.getServiceId());
+		ServiceEntity entity=op.get();
+		if(op.isEmpty()) {
+			return "redirect:/login";
+		}
+		entity.setServiceName(serviceEntity.getServiceName());
+		entity.setDescription(serviceEntity.getDescription());
+		entity.setUpdatedAt(new Date());
+		servicesRepository.save(entity);
+		
+		model.addAttribute("service",serviceEntity);
+		return "redirect:/editservice";
+		
+	}
+	
+	
+	@GetMapping("/s")
+	public String s() {
+		return "Services";
+	}
+	public String getMethodName(@RequestParam String param) {
+		return new String();
+	}
+	
 }
+

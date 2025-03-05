@@ -1,5 +1,6 @@
 package com.grownited.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -54,6 +55,29 @@ public class UserEntity {
 	
 	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL, orphanRemoval = true)
 	@ToString.Exclude
-	List<ServiceEntity> serviceEntities;
+	List<ServiceEntity> serviceEntities=new ArrayList<>();
 
+	//package
+	@OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
+     List<PackageEntity> packages=new ArrayList<>();
+	
+//	
+//	@OneToMany(mappedBy = "userEntity",cascade = CascadeType.ALL, orphanRemoval = true)
+//	@ToString.Exclude
+//	List<PackageEntity> packageEntities;
+//	
+//	@OneToOne(mappedBy = "userEntity" , cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//	PackageEntity packageEntity;
+//	
+	
+	//booking
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<BookingEntity> userBookings=new ArrayList<>();
+
+    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
+    List<BookingEntity> serviceBookings=new ArrayList<>();
+
+
+	
 }

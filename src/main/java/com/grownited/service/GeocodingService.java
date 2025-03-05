@@ -58,13 +58,13 @@ public class GeocodingService {
         return new Double[]{0.0, 0.0}; // Default coordinates (fallback)
     }
 
-//    public static void main(String[] args) {
-//        Double[] points = GeocodingService.getLatLongFromAddress("189 The Grove Dr, Los Angeles, CA 90036, United States");
-//        if (points != null) {
-//            System.out.println("Latitude: " + points[0]);
-//            System.out.println("Longitude: " + points[1]);
-//        } else {
-//            System.out.println("Failed to retrieve coordinates.");
-//        }
-//    }
+    public static void main(String[] args) {
+        Double[] points = GeocodingService.getLatLongFromAddress("189 The Grove Dr, Los Angeles, CA 90036, United States");
+        if (points != null) {
+            System.out.println("Latitude: " + points[0]);
+            System.out.println("Longitude: " + points[1]);
+        } else {
+            System.out.println("Failed to retrieve coordinates.");
+        }
+    }
 }

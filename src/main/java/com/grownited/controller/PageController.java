@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grownited.entity.CategoryEntity;
+import com.grownited.repository.CategoryRepository;
 import com.grownited.service.CategoryService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,19 +24,21 @@ public class PageController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
 //	opening home page
 	@GetMapping(value = {"/", "/home"})
 	public String openHomePage(HttpSession httpSession,Model model) {
-		UUID userId=(UUID)httpSession.getAttribute("userId");
-		 System.out.println("Session User ID: " + userId);  // Debugging line
-		    
-		if(userId == null) {
+//		UUID userId=(UUID)httpSession.getAttribute("userId");
+//		 System.out.println("Session User ID: " + userId);  // Debugging line
+//		    
+//		if(userId == null) {
 			List<CategoryEntity> categoryList=categoryService.getAllCategory();
 			model.addAttribute("categories", categoryList);
 			return "Home";
 			
-		}
-		return "redirect:/loginuserhome";
+//		}
+//		return "redirect:/loginuserhome";
 //		System.out.println("Home page is called");
 		
 	}
@@ -59,8 +62,10 @@ public class PageController {
 	
 	
 	@GetMapping("/loginuserhome")
-	public String loginUserHome() {
+	public String loginUserHome(Model model) {
 		System.out.println("This login user home is called");
+		List<CategoryEntity> categories = categoryRepository.findAll();
+    	model.addAttribute("categories", categories);
 		return "LoginUserHome";
 	}
 	
@@ -83,4 +88,11 @@ public class PageController {
 	}
 	
 	
+	@GetMapping("/errorpage")
+	public String errorPage() {
+		return "ErrorPage";
+	}
+	
+	
+
 }

@@ -1,8 +1,13 @@
 package com.grownited.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +16,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.grownited.entity.CategoryEntity;
+import com.grownited.entity.PackageEntity;
+import com.grownited.entity.ServiceEntity;
+import com.grownited.entity.UserEntity;
+import com.grownited.repository.CategoryRepository;
+import com.grownited.repository.PackageRepository;
+import com.grownited.repository.ServicesRepository;
+import com.grownited.repository.UserRepository;
 import com.grownited.service.CategoryService;
+
+import ch.qos.logback.classic.Logger;
 
 @Controller
 public class CategoryController {
@@ -21,10 +36,100 @@ public class CategoryController {
 	@Autowired 
 	private CategoryService categoryService;
 	
+	@Autowired
+	private CategoryRepository categoryRepository;
+	@Autowired
+	private ServicesRepository servicesRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private PackageRepository packageRepository;
+	
 	@GetMapping("/opencategory")
 	public String addCategory() {
 		return "AddCategory";
 	}
+	
+	//login user can see the avalible service
+
+	@GetMapping("/categorydetails")
+	public String categoryDetails(@RequestParam("categoryId") UUID categoryId, Model model) {
+	    
+	    // Fetch category safely
+	    CategoryEntity category = categoryRepository.findById(categoryId)
+	        .orElse(null);
+
+	    if (category == null) {
+	        model.addAttribute("error", "Category not found");
+	        return "ErrorPage"; // Redirect to an error page
+	    }
+
+	    // Fetch services for the category
+	    List<ServiceEntity> serviceList = servicesRepository.findByCategory_CategoryId(categoryId);
+
+	    // Fetch packages for each service safely
+	    for (ServiceEntity serviceEntity : serviceList) {
+	        packageRepository.findByServiceEntity_ServiceId(serviceEntity.getServiceId())
+	            .ifPresent(pack -> System.out.println("PackageDetails: " + pack));
+//	        System.out.println("UserEntity name is here "+serviceEntity.getUserEntity().getName());
+//	        System.out.println("User" + serviceEntity.getUserEntity().getUserId());
+	    }
+	    
+	   
+
+	    
+	    
+	    // Fetch and set UserEntity for each ServiceEntity
+//	    for (ServiceEntity serviceEntity : serviceList) {
+//	    	Optional<UserEntity> userOptional = servicesRepository.findUserByServiceId(serviceEntity.getServiceId());
+
+//	    	if (userOptional.isPresent()) {
+//	    	    UserEntity user = userOptional.get();
+//	    	    System.out.println("User Found: " + user.getName());
+//	    	    serviceEntity.setUserEntity(user);
+//	    	} else {
+//	    	    System.out.println("No User Found for this Service ID");
+//	    	}  // Set the user in serviceEntity
+//	    }
+
+	    // Add data to model
+	    model.addAttribute("category", category);
+	    model.addAttribute("services", serviceList);
+	    return "CategoryDetails";
+	}
+
+//	@GetMapping("/categorydetails")
+//	public String categoryDetails(@RequestParam("categoryId") UUID categoryId, Model model) {
+//	    
+//	    // Fetch category safely
+//	    CategoryEntity category = categoryRepository.findById(categoryId).orElse(null);
+//
+//	    if (category == null) {
+//	        model.addAttribute("error", "Category not found");
+//	        return "ErrorPage"; // Redirect to an error page
+//	    }
+//
+//	    // Fetch services for the category
+//	    List<ServiceEntity> serviceList = servicesRepository.findByCategory_CategoryId(categoryId);
+//
+//	    // Fetch users for each service
+//	    Map<UUID, List<UserEntity>> serviceUsersMap = new HashMap<>();
+//
+//	    for (ServiceEntity serviceEntity : serviceList) {
+//	        List<UserEntity> users =userRepository.findByServiceEntity_ServiceId(serviceEntity.getServiceId());
+//	        serviceUsersMap.put(serviceEntity.getServiceId(), users);
+//	    }
+//
+//	    // Add data to model
+//	    model.addAttribute("category", category);
+//	    model.addAttribute("services", serviceList);
+//	    model.addAttribute("serviceUsersMap", serviceUsersMap);
+//
+//	    return "CategoryDetails";
+//	}
+
 	
 	@PostMapping("addcategory")
 	public String saveCategory(CategoryEntity categoryEntity)

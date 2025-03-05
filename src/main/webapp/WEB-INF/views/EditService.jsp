@@ -13,7 +13,7 @@
 	<div class="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-lg">
 		<h2 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">Edit
 			Service</h2>
-		<form action="updateservice.jsp" method="post" class="space-y-6">
+		<form action="/updateservice" method="post" class="space-y-6">
 			<input type="hidden" name="serviceId" value="${service.serviceId}">
 			<div>
 				<label class="block text-gray-700 text-sm font-semibold mb-1"

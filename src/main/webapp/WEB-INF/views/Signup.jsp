@@ -1,55 +1,102 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Free Account</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Urban Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        input, select {
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gradient-to-br from-gray-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
 
-<div class="font-[sans-serif] p-4 mt-6">
-    <div class="flex flex-col justify-center">
-        <div class="max-w-md w-full mx-auto shadow-[0_2px_10px_-2px_rgba(195,169,50,0.5)] p-8 relative mt-12">
-            <div class="bg-white w-24 h-24 border-[8px] p-4 absolute left-0 right-0 mx-auto -top-12 rounded-full overflow-hidden">
-                <a href="javascript:void(0)">
-                    <img src="https://readymadeui.com/readymadeui-short.svg" alt="logo" class='w-full inline-block' />
-                </a>
+    <div class="max-w-md w-full mx-auto shadow-[0_2px_10px_-2px_rgba(59,130,246,0.5)] p-8 bg-white rounded-2xl relative mt-12 fade-in">
+        <!-- Logo -->
+        <div class="bg-white w-24 h-24 border-[8px] border-blue-500 p-4 absolute left-0 right-0 mx-auto -top-12 rounded-full overflow-hidden hover-scale">
+            <a href="/">
+                <img src="https://readymadeui.com/readymadeui-short.svg" alt="Urban Service Logo" class="w-full h-full object-contain" />
+            </a>
+        </div>
+
+        <!-- Form -->
+        <form class="mt-12" action="saveUser" method="post">
+            <h3 class="text-2xl font-bold text-blue-600 mb-6 text-center">Create Your Account</h3>
+            <div class="space-y-5">
+                <div>
+                    <input name="name" type="text" 
+                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" 
+                           placeholder="Full Name" required />
+                </div>
+                <div>
+                    <input name="emailId" type="email" 
+                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" 
+                           placeholder="Email Address" required />
+                </div>
+                <div>
+                    <input name="password" type="password" 
+                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" 
+                           placeholder="Password" required />
+                </div>
+                <div>
+                    <input name="phone" type="text" 
+                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" 
+                           placeholder="Mobile Number" required />
+                </div>
+                <div>
+                    <select name="role" 
+                            class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none">
+                        <option value="USER">User</option>
+                        <option value="SERVICE_PROVIDER">Service Provider</option>
+                    </select>
+                </div>
+                <!-- Uncomment and enhance if profile pic upload is needed -->
+                <!-- 
+                <div>
+                    <input type="file" name="profilePic" 
+                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none" 
+                           accept="image/*" />
+                </div>
+                -->
             </div>
 
-            <form class="mt-12" action="saveUser" method="post" > <%-- Add action and method --%>
-                <h3 class="text-xl font-bold text-blue-600 mb-6 text-center">Create free account</h3>
-                <div class="space-y-4">
-                    <input name="name" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter name" required/> <%-- Added required --%>
-                    <input name="emailId" type="email" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter email" required/> <%-- Added required and type="email" --%>
-                    <input name="password" type="password" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter password" required/> <%-- Added required --%>
-                    <input name="phone" type="text" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Enter Mobile Number" required/> <%-- Added required --%>
-                    <select name="role" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">
-                    	<option value="USER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">User</option>
-                    	<option value="SERVICE_PROVIDER" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all">Service Provider</option>
-                    </select>
-                    
-                 <!--    <input type="file" name ="profilePic" class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3 focus:bg-transparent border border-gray-100 focus:border-black outline-none transition-all" placeholder="Choose Profile Pic" required/> -->
-                   <!--  <div class="flex items-center">	
-                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 border-gray-300 rounded" />
-                        <label for="remember-me" class="ml-3 block text-sm text-gray-800">
-                            I accept the <a href="javascript:void(0);" class="text-blue-600 font-semibold hover:underline ml-1">Terms and Conditions</a>
-                        </label>
-                    </div>
-                     -->
-                </div>
+            <button type="submit" 
+                    class="w-full py-3 px-4 mt-6 text-sm tracking-wide text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition duration-300 hover-scale">
+                Sign Up
+            </button>
 
-                <div class="mt-6">
-                    <button type="submit" class="w-full py-3 px-4 text-sm tracking-wide text-white bg-black hover:bg-[#111] focus:outline-none"> <%-- Changed to submit --%>
-                        Create an account
-                    </button>
-                </div>
-                <p class="text-sm mt-6 text-center text-gray-800">Already have an account? <a href="login" class="text-blue-600 font-semibold hover:underline ml-1">Login here</a></p>
-            </form>
-        </div>
+            <p class="text-sm mt-6 text-center text-gray-600">
+                Already have an account? 
+                <a href="login" class="text-blue-600 font-semibold hover:underline ml-1">Login here</a>
+            </p>
+        </form>
     </div>
-</div>
 
 </body>
 </html>
