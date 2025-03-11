@@ -59,12 +59,12 @@
             </button>
         </div>
         <ul class="space-y-3">
-            <li><a href="/service-provider/dashboard" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Dashboard</a></li>
-            <li><a href="/profile" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Profile</a></li>
-            <li><a href="/servicelist" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Service</a></li>
-            <li><a href="/bookings/provider" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Bookings</a></li>
-            <li><a href="/earnings/provider" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Earnings</a></li>
-            <li><a href="/reviews/provider" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(this)">Reviews</a></li>
+            <li><a href="/service-provider/dashboard" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Dashboard</a></li>
+            <li><a href="/profile" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Profile</a></li>
+            <li><a href="/servicelistprovider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Service</a></li>
+            <li><a href="/provider/bookings" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Bookings</a></li>
+            <li><a href="/earnings/provider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Earnings</a></li>
+            <li><a href="/reviews/provider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Reviews</a></li>
             <li><a href="/logout" class="block py-2 px-4 bg-red-600 hover:bg-red-700 rounded mt-6 text-center hover-scale transition duration-300">Logout</a></li>
         </ul>
     </nav>
@@ -75,53 +75,45 @@
     </div>
 
     <script>
-        // Function to update URL and highlight active link
-        function updateURL(element) {
-            const url = element.getAttribute('href');
-            window.history.pushState({}, '', url);
+    document.addEventListener("DOMContentLoaded", function () {
+        // Local storage se page URL uthao
+        let savedPage = localStorage.getItem("providerActivePage");
 
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            element.classList.add('active');
+        if (savedPage) {
+            document.getElementById("contentFrame").src = savedPage;
+            updateActiveLink(savedPage);
         }
+    });
 
-        // Sync iframe URL with browser URL on load
-        window.onload = function() {
-            const iframe = document.getElementById('contentFrame');
-            const initialUrl = iframe.src;
-            window.history.replaceState({}, '', initialUrl);
+    function updateURL(event, element) {
+        event.preventDefault(); // Default behavior rokna h
+        const url = element.getAttribute("href");
 
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                if (link.getAttribute('href') === initialUrl) {
-                    link.classList.add('active');
-                }
-            });
+        // iframe me URL load karna
+        document.getElementById("contentFrame").src = url;
 
-            iframe.onload = function() {
-                const currentUrl = iframe.contentWindow.location.pathname;
-                if (currentUrl !== window.location.pathname) {
-                    window.history.pushState({}, '', currentUrl);
-                    updateActiveLink(currentUrl);
-                }
-            };
-        };
+        // Local storage me URL save karna
+        localStorage.setItem("providerActivePage", url);
 
-        // Helper function to update active link based on URL
-        function updateActiveLink(url) {
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === url) {
-                    link.classList.add('active');
-                }
-            });
-        }
+        // Active class update karna
+        updateActiveLink(url);
+    }
 
-        // Toggle sidebar on mobile
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('open');
-        }
+    function updateActiveLink(url) {
+        document.querySelectorAll(".sidebar-link").forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === url) {
+                link.classList.add("active");
+            }
+        });
+    }
+
+    // Toggle sidebar on mobile
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+    }
     </script>
+
 </body>
 </html>

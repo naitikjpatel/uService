@@ -111,7 +111,7 @@ public class SessionController {
 
 	    System.out.println("Credentials are correct");
 	    httpSession.setAttribute("userId", foundUser.getUserId());
-	    httpSession.setAttribute("userRole", foundUser.getRole());
+	    httpSession.setAttribute("role", foundUser.getRole());
 	    foundUser.setPassword("");
 	    System.out.println("User ID stored in session: " + foundUser.getUserId());
 	    System.out.println("User Role stored in session: " + foundUser.getRole());

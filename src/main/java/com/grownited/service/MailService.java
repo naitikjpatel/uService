@@ -68,6 +68,23 @@ public class MailService {
             e.printStackTrace();
         }
     }
+	
+	
+	public void sendEmail(String userMail,String providerMail,String subject ,String message) {
+
+		
+		String from = "tejasshah2k19@gmail.com";
+		
+		SimpleMailMessage mailMessage=new SimpleMailMessage();
+		mailMessage.setSubject(subject);
+		mailMessage.setText(message);
+		mailMessage.setFrom(from);
+		mailMessage.setTo(userMail);
+		
+		javaMailSender.send(mailMessage);
+	
+}
+	
 
 	
 }

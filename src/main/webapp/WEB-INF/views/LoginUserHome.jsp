@@ -95,6 +95,13 @@ if (user == null) {
                     <i class="fa-solid fa-user fa-lg"></i>
                     <span>Profile</span>
                 </a>
+                 <div>
+              <a href="bookinghistoryuser" class="flex items-center space-x-2 text-black-700 hover:text-white-900">
+    <i class="fa-solid fa-calendar-check"></i>
+    <span>My Bookings</span>
+</a>
+
+   </div>
                 <a href="/logout" class="bg-red-600 px-5 py-2 rounded-full hover:bg-red-700 transition duration-300 shadow-md">Logout</a>
             </div>
         </div>

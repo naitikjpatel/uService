@@ -21,6 +21,8 @@ import com.grownited.repository.ServicesRepository;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.CategoryService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class ServiceController {
 
@@ -102,6 +104,14 @@ public class ServiceController {
 		return "ServiceList";
 	}
 	
+//	this method for the serviceProvider
+	@GetMapping("/servicelistprovider")
+	public String getAllServiceOfProvider(Model model,HttpSession httpSession) {
+		UUID userId=(UUID) httpSession.getAttribute("userId");
+		List<ServiceEntity> serviceList=servicesRepository.findByUserEntity_UserId(userId);
+		model.addAttribute("services", serviceList);
+		return "ServiceListProvider";
+	}
 	
 	@GetMapping("/deleteservice")
 	public String deleteServiceById(@RequestParam("id") UUID serviceId) {

@@ -33,7 +33,7 @@
                         <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Service Name</th>
                         <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Description</th>
                         <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Category</th>
-                        <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Provider</th>
+                        
                         <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Created</th>
                         <th class="px-6 py-3 text-left font-medium text-gray-700 border-b">Updated</th>
                         <th class="px-6 py-3 text-center font-medium text-gray-700 border-b">Actions</th>
@@ -52,7 +52,7 @@
                                     <td class="px-6 py-4 border-b text-gray-800">${service.serviceName}</td>
                                     <td class="px-6 py-4 border-b text-gray-600">${service.description}</td>
                                     <td class="px-6 py-4 border-b text-gray-600">${service.category.categoryName}</td>
-                                    <td class="px-6 py-4 border-b text-gray-600">${service.userEntity.name}</td>
+                                    
                                     <td class="px-6 py-4 border-b text-gray-600">
                                         <fmt:formatDate value="${service.createdAt}" pattern="MMM dd, yyyy HH:mm" />
                                     </td>

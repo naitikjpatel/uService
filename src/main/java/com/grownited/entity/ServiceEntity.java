@@ -45,7 +45,7 @@ public class ServiceEntity {
 	//this both fk
 //	UUID providerId;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="providerId", referencedColumnName ="userId")  //referancedcolumnnmae is need to match with the userEntity primary key
 	@ToString.Exclude
 	UserEntity userEntity;

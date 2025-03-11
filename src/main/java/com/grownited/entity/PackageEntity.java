@@ -47,6 +47,8 @@ public class PackageEntity {
 	 @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
 	 CategoryEntity category;
 	
+	 @OneToOne(mappedBy = "packageEntity")
+	 BookingEntity bookingEntity;
 	
 	@PrePersist
     public void setDefaultValues() {

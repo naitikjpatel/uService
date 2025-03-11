@@ -40,12 +40,12 @@
             <h2 class="text-2xl font-bold">Admin Panel</h2>
         </div>
         <nav class="space-y-2">
-            <a href="/admindashboard" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Dashboard</a>
-            <a href="/userlist" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Users</a>
-            <a href="/providers" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Service Providers</a>
-            <a href="/bookings" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Bookings</a>
-            <a href="/listcategory" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Categories</a>
-            <a href="/reports" target="contentFrame" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(this)">Reports</a>
+            <a href="/admindashboard" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Dashboard</a>
+            <a href="/userlist" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Users</a>
+            <a href="/servicelist" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Services</a>
+            <a href="/bookings" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Bookings</a>
+            <a href="/listcategory" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Categories</a>
+            <a href="/reports" class="sidebar-link block py-2 px-4 hover:bg-blue-700 rounded hover-scale" onclick="updateURL(event, this)">Reports</a>
             <a href="/logout" class="block py-2 px-4 bg-red-600 hover:bg-red-700 rounded mt-6 text-center hover-scale transition duration-300">Logout</a>
         </nav>
     </div>
@@ -56,43 +56,39 @@
     </div>
 
     <script>
-    // Function to update URL and highlight active link
-    function updateURL(element) {
-        const url = element.getAttribute('href');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Local storage se page URL uthao
+        let savedPage = localStorage.getItem("activePage");
 
-        // Update iframe source
-        document.getElementById('contentFrame').src = url;
+        if (savedPage) {
+            document.getElementById("contentFrame").src = savedPage;
+            updateActiveLink(savedPage);
+        }
+    });
 
-        // Update browser URL
-        window.history.pushState({ path: url }, '', url);
+    function updateURL(event, element) {
+        event.preventDefault(); // Default behavior rokna h
+        const url = element.getAttribute("href");
 
-        // Remove active class from all links
-        document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+        // iframe me URL load karna
+        document.getElementById("contentFrame").src = url;
 
-        // Add active class to clicked link
-        element.classList.add('active');
+        // Local storage me URL save karna
+        localStorage.setItem("activePage", url);
 
-        return false; // Prevent default anchor behavior
+        // Active class update karna
+        updateActiveLink(url);
     }
 
-    // Handle browser back/forward navigation
-    window.onpopstate = function (event) {
-        if (event.state && event.state.path) {
-            document.getElementById('contentFrame').src = event.state.path;
-            updateActiveLink(event.state.path);
-        }
-    };
-
-    // Highlight the active link based on URL
     function updateActiveLink(url) {
-        document.querySelectorAll('.sidebar-link').forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === url) {
-                link.classList.add('active');
+        document.querySelectorAll(".sidebar-link").forEach(link => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === url) {
+                link.classList.add("active");
             }
         });
     }
-</script>
+    </script>
 
 </body>
 </html>

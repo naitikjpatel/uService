@@ -78,6 +78,12 @@ public class UserEntity {
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
     List<BookingEntity> serviceBookings=new ArrayList<>();
 
+	@Override
+	public String toString() {
+		return "UserEntity [userId=" + userId + ", name=" + name + ", emailId=" + emailId + ", phone=" + phone
+				+ ", password=" + password + ", role=" + role + "]";
+	}
+
 
 	
 }

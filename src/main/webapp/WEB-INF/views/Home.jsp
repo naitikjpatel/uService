@@ -219,26 +219,48 @@ html, body {
 <body
 	class="font-sans bg-gradient-to-br from-indigo-50 to-purple-50 text-gray-900 min-h-screen">
 	<!-- Navbar -->
-	<nav
-		class="bg-gradient-to-r from-indigo-600 to-teal-600 text-white p-4 sticky top-0 z-10 shadow-lg">
-		<div
-			class="container mx-auto flex justify-between items-center flex-wrap">
-			<a href="/home"
-				class="text-3xl font-extrabold tracking-tight animate-slide-in-left">UrbanService</a>
-			<div class="nav-links space-x-6 text-lg md:flex hidden">
+<nav class="bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-600 text-white p-4 sticky top-0 z-20 shadow-xl">
+    <div class="container mx-auto flex justify-between items-center flex-wrap">
+        <!-- Logo -->
+        <a href="/home" class="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-indigo-200 animate-slide-in-left transition-all duration-300 hover:scale-105">
+            UrbanService
+        </a>
 
-				<a href="#services"
-					class="hover:text-indigo-200 transition ease-in-out duration-300">Services</a>
-				<a href="aboutus"
-					class="hover:text-indigo-200 transition ease-in-out duration-300">About</a>
-				<a href="contactus"
-					class="hover:text-indigo-200 transition ease-in-out duration-300">Contact</a>
-				<a href="login"
-					class="hover:text-indigo-200 transition ease-in-out duration-300">Login</a>
-			</div>
-		</div>
-	</nav>
+        <!-- Hamburger Menu for Mobile -->
+        <button class="md:hidden text-white focus:outline-none" id="nav-toggle" aria-label="Toggle navigation">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
 
+        <!-- Navigation Links -->
+        <div class="nav-links hidden md:flex items-center space-x-8 text-lg transition-all duration-300" id="nav-menu">
+            <a href="#services" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
+                Services
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
+            </a>
+            <a href="aboutus" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
+                About
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
+            </a>
+            <a href="contactus" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
+                Contact
+                <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
+            </a>
+            <a href="login" class="px-4 py-2 bg-white text-indigo-600 rounded-lg font-semibold shadow-md hover:bg-indigo-100 hover:text-indigo-700 transition-all duration-300 ease-in-out transform hover:-translate-y-1">
+                Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="md:hidden hidden flex-col space-y-4 mt-4 bg-indigo-700/90 p-4 rounded-lg shadow-lg" id="mobile-menu">
+        <a href="#services" class="px-3 py-2 hover:bg-indigo-600 rounded-md transition-all duration-300">Services</a>
+        <a href="aboutus" class="px-3 py-2 hover:bg-indigo-600 rounded-md transition-all duration-300">About</a>
+        <a href="contactus" class="px-3 py-2 hover:bg-indigo-600 rounded-md transition-all duration-300">Contact</a>
+        <a href="login" class="px-3 py-2 bg-white text-indigo-600 rounded-md font-semibold hover:bg-indigo-100 transition-all duration-300">Login</a>
+    </div>
+</nav>
 	<!-- Hero Section -->
 	<section id="home"
 		class="min-h-screen bg-gradient-to-b from-teal-500 to-indigo-700 text-white py-28 relative flex items-center"
@@ -365,6 +387,17 @@ function toggleDescription(categoryId) {
         btn.innerText = "See More";
     }
 }
+
+<!-- JavaScript for Hamburger Menu Toggle -->
+
+    const navToggle = document.getElementById('nav-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    navToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+
 </script>
 
 </body>
