@@ -1,5 +1,6 @@
 package com.grownited.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.grownited.entity.CategoryEntity;
 import com.grownited.entity.PackageEntity;
 import com.grownited.entity.ServiceEntity;
@@ -46,6 +49,9 @@ public class CategoryController {
 	
 	@Autowired
 	private PackageRepository packageRepository;
+	
+	@Autowired
+ 	Cloudinary cloudinary;
 	
 	@GetMapping("/opencategory")
 	public String addCategory() {
@@ -134,6 +140,18 @@ public class CategoryController {
 	@PostMapping("addcategory")
 	public String saveCategory(CategoryEntity categoryEntity)
 	{
+		Map result;
+		try {
+			result = cloudinary.uploader().upload(categoryEntity.getCategoryImage().getBytes(), ObjectUtils.emptyMap());
+
+			//System.out.println(result);
+			//System.out.println(result.get("url"));
+			categoryEntity.setCategoryPicUrl(result.get("url").toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		categoryService.createCategory(categoryEntity);
 		return "redirect:/listcategory";
 	}

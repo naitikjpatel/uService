@@ -1,7 +1,9 @@
 package com.grownited.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.grownited.entity.CategoryEntity;
 import com.grownited.entity.PackageEntity;
 import com.grownited.entity.ServiceEntity;
@@ -37,6 +41,8 @@ public class ServiceController {
 	
 	@Autowired
 	private PackageRepository packageRepository;
+	@Autowired
+	private Cloudinary cloudinary;
 	
 	@GetMapping("newservice")
 	public String openService(Model model) {
@@ -69,6 +75,17 @@ public class ServiceController {
 		packageEntity.setServiceEntity(serviceEntity);
 		packageEntity.setServiceProvider(op.get());
 		
+		Map result;
+		try {
+			result = cloudinary.uploader().upload(serviceEntity.getServicePhoto().getBytes(), ObjectUtils.emptyMap());
+
+			//System.out.println(result);
+			//System.out.println(result.get("url"));
+			serviceEntity.setServicePicUrl(result.get("url").toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		servicesRepository.save(serviceEntity);
 		packageRepository.save(packageEntity);

@@ -11,9 +11,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GeocodingService {
+public class LatLongService {
 
-    private static final String API_KEY = "AIzaSyDZaqhyWIWsB1uVgd-5aSs6WMIB8XwGkFU";  // Replace with your actual API key
+	private static final String API_KEY = "AIzaSyDZaqhyWIWsB1uVgd-5aSs6WMIB8XwGkFU";  // Replace with your actual API key
 
     public static Double[] getLatLongFromAddress(String address) {
         try {
@@ -58,13 +58,4 @@ public class GeocodingService {
         return new Double[]{0.0, 0.0}; // Default coordinates (fallback)
     }
 
-    public static void main(String[] args) {
-        Double[] points = GeocodingService.getLatLongFromAddress("b/3 nirnaynagar,sector vii");
-        if (points != null) {
-            System.out.println("Latitude: " + points[0]);
-            System.out.println("Longitude: " + points[1]);
-        } else {
-            System.out.println("Failed to retrieve coordinates.");
-        }
-    }
 }

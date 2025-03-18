@@ -46,7 +46,7 @@
         </div>
 
         <!-- Form -->
-        <form class="mt-12" action="saveUser" method="post">
+        <form class="mt-12" action="saveUser" method="post" enctype="multipart/form-data">
             <h3 class="text-2xl font-bold text-blue-600 mb-6 text-center">Create Your Account</h3>
             <div class="space-y-5">
                 <div>
@@ -77,13 +77,13 @@
                     </select>
                 </div>
                 <!-- Uncomment and enhance if profile pic upload is needed -->
-                <!-- 
+                
                 <div>
                     <input type="file" name="profilePic" 
                            class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none" 
                            accept="image/*" />
                 </div>
-                -->
+                
             </div>
 
             <button type="submit" 

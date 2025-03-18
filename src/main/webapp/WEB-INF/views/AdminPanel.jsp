@@ -76,9 +76,20 @@
         // Local storage me URL save karna
         localStorage.setItem("activePage", url);
 
+        // Browser ka URL update karna
+        history.pushState({ path: url }, '', url);
+
         // Active class update karna
         updateActiveLink(url);
     }
+
+    // Back/Forward button support ke liye event listener
+    window.addEventListener("popstate", function (event) {
+        let url = event.state ? event.state.path : "/admindashboard";
+        document.getElementById("contentFrame").src = url;
+        updateActiveLink(url);
+    });
+
 
     function updateActiveLink(url) {
         document.querySelectorAll(".sidebar-link").forEach(link => {

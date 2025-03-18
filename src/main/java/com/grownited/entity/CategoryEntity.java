@@ -10,9 +10,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.ToString;
@@ -26,10 +28,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "UUID")
     UUID categoryId;
     String categoryName;
     String categoryDescription;
+    @Transient
+    MultipartFile categoryImage;
     String categoryPicUrl;
 
     @JsonIgnore  // ✅ Prevents infinite recursion

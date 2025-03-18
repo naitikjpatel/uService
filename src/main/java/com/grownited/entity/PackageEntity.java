@@ -1,11 +1,14 @@
 package com.grownited.entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -26,7 +29,7 @@ import lombok.experimental.FieldDefaults;
 public class PackageEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.UUID)
 	UUID packageId;
 	String packageName;
 	float price;
@@ -34,7 +37,7 @@ public class PackageEntity {
 	float tax;
 	float commission;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "serviceId",referencedColumnName = "serviceId")
 	ServiceEntity serviceEntity;
 	
@@ -47,8 +50,10 @@ public class PackageEntity {
 	 @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
 	 CategoryEntity category;
 	
-	 @OneToOne(mappedBy = "packageEntity")
-	 BookingEntity bookingEntity;
+	 @OneToMany(mappedBy = "packageEntity",cascade = CascadeType.ALL)
+	 @JsonIgnore
+	 List<BookingEntity> bookings;
+
 	
 	@PrePersist
     public void setDefaultValues() {

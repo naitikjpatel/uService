@@ -31,6 +31,8 @@ import com.grownited.service.MailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
@@ -55,7 +57,7 @@ public class BookingController {
 	private MailService mailService;
 	
 	//booking jsp
-	@GetMapping("/bookingservice")
+	@GetMapping("bookingservice")
 	public String bookingService(IdDto idDto,Model model,HttpSession httpSession) {
 		
 		UUID userId = (UUID) httpSession.getAttribute("userId");
@@ -84,109 +86,129 @@ public class BookingController {
 	
 	
 	
+	@PostMapping("/save/bookservice")
+//	@RequestMapping(method = RequestMethod.POST) // Explicitly specify
+	public String userBookedService(@RequestParam UUID userId,
+            @RequestParam UUID providerId,
+            @RequestParam UUID serviceId,
+            @RequestParam UUID packageId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date bookingDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime bookingTime) {
+		System.out.println("----");
+        // Fetch UserEntity (Customer)
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Fetch UserEntity (Service Provider)
+        UserEntity serviceProvider = userRepository.findById(providerId)
+                .orElseThrow(() -> new RuntimeException("Service Provider not found"));
+
+        // Fetch ServiceEntity
+        ServiceEntity service = servicesRepository.findById(serviceId)
+                .orElseThrow(() -> new RuntimeException("Service not found"));
+
+        // Fetch PackageEntity
+        PackageEntity packageEntity = packageRepository.findById(packageId)
+                .orElseThrow(() -> new RuntimeException("Package not found"));
+
+        System.out.println("userId "+userId);
+        System.out.println("Provider Id"+providerId);
+        // Create BookingEntity Object
+        BookingEntity booking=new BookingEntity();
+        booking.setUser(user);
+        booking.setServiceProvider(serviceProvider);
+        booking.setService(service);
+        booking.setPackageEntity(packageEntity);
+        booking.setBookingDate(bookingDate);
+        booking.setBookingTime(bookingTime);
+        booking.setStatus(Bookstatus.PENDING); // Default status
+
+        // Save Booking
+        bookingRepository.save(booking);
+
+        return "redirect:/loginuserhome";
+	}
+//	
+//	
+//	
+	
 //	@PostMapping("/bookservice")
 //	public String userBookedService(@RequestParam UUID userId,
-//            @RequestParam UUID providerId,
-//            @RequestParam UUID serviceId,
-//            @RequestParam UUID packageId,
-//            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date bookingDate,
-//            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime bookingTime) {
-//        
-//        // Fetch UserEntity (Customer)
-//        UserEntity user = userRepository.findById(userId)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
+//	                                @RequestParam UUID providerId,
+//	                                @RequestParam UUID serviceId,
+//	                                @RequestParam UUID packageId,
+//	                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date bookingDate,
+//	                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime bookingTime) {
 //
-//        // Fetch UserEntity (Service Provider)
-//        UserEntity serviceProvider = userRepository.findById(providerId)
-//                .orElseThrow(() -> new RuntimeException("Service Provider not found"));
+//	    // Check if provider is already booked at the same date & time
+//		if (bookingRepository.countByServiceProvider_UserIdAndBookingDateAndBookingTime(providerId, bookingDate, bookingTime) > 0) {
+//		    throw new RuntimeException("Service provider is already booked at this date and time. Please select another time.");
+//		}
 //
-//        // Fetch ServiceEntity
-//        ServiceEntity service = servicesRepository.findById(serviceId)
-//                .orElseThrow(() -> new RuntimeException("Service not found"));
 //
-//        // Fetch PackageEntity
-//        PackageEntity packageEntity = packageRepository.findById(packageId)
-//                .orElseThrow(() -> new RuntimeException("Package not found"));
+//	    // Fetch required entities
+//	    UserEntity user = userRepository.findById(userId)
+//	            .orElseThrow(() -> new RuntimeException("User not found"));
 //
-//        System.out.println("userId "+userId);
-//        System.out.println("Provider Id"+providerId);
-//        // Create BookingEntity Object
-//        BookingEntity booking=new BookingEntity();
-//        booking.setUser(user);
-//        booking.setServiceProvider(serviceProvider);
-//        booking.setService(service);
-//        booking.setPackageEntity(packageEntity);
-//        booking.setBookingDate(bookingDate);
-//        booking.setBookingTime(bookingTime);
-//        booking.setStatus(Bookstatus.PENDING); // Default status
+//	    UserEntity serviceProvider = userRepository.findById(providerId)
+//	            .orElseThrow(() -> new RuntimeException("Service Provider not found"));
 //
-//        // Save Booking
-//        bookingRepository.save(booking);
+//	    ServiceEntity service = servicesRepository.findById(serviceId)
+//	            .orElseThrow(() -> new RuntimeException("Service not found"));
 //
-//        return "redirect:/loginuserhome";
+//	    PackageEntity packageEntity = packageRepository.findById(packageId)
+//	            .orElseThrow(() -> new RuntimeException("Package not found"));
+//
+//	    // Create BookingEntity Object
+//	    BookingEntity booking = new BookingEntity();
+//	    booking.setUser(user);
+//	    booking.setServiceProvider(serviceProvider);
+//	    booking.setService(service);
+//	    booking.setPackageEntity(packageEntity);
+//	    booking.setBookingDate(bookingDate);
+//	    booking.setBookingTime(bookingTime);
+//	    booking.setStatus(Bookstatus.PENDING); // Default status
+//
+//	    // Save Booking
+//	    bookingRepository.save(booking);
+//
+//	    return "redirect:/loginuserhome";
 //	}
-//	
-//	
-//	
-	
-	
-	@PostMapping("/bookservice")
-	public String userBookedService(@RequestParam UUID userId,
-	                                @RequestParam UUID providerId,
-	                                @RequestParam UUID serviceId,
-	                                @RequestParam UUID packageId,
-	                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date bookingDate,
-	                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime bookingTime) {
 
-	    // Check if provider is already booked at the same date and time
-	    boolean isBooked = bookingRepository.existsByServiceProvider_UserIdAndBookingDateAndBookingTime(providerId, bookingDate, bookingTime);
+	// open the booking history jsp for the user
+//	@GetMapping("/bookinghistoryuser")
+//	public String bookingHistoryForUser(HttpSession httpSession,Model model) {
+//		System.out.println("Bookig Hostory method is called");
+//		UUID userId=(UUID)httpSession.getAttribute("userId");
+//		List<BookingEntity>bookingList= bookingRepository.findByUser_UserId(userId);
+//		System.out.println("Booking list"+bookingList.get(0).getBookingId());
+//		model.addAttribute("bookingList", bookingList);
+//		return "BookingHistoryForUser";
+//	}
+	
+	@GetMapping("/bookinghistoryuser")
+	public String bookingHistoryForUser(HttpSession httpSession, Model model) {
+	    System.out.println("Booking History method is called");
 	    
-	    if (isBooked) {
-	        throw new RuntimeException("Service provider is already booked at this date and time. Please select another time.");
+	    UUID userId = (UUID) httpSession.getAttribute("userId");
+	    
+	    if (userId == null) {
+	        System.out.println("Error: userId is null");
+	        return "redirect:/login";  // Redirect to login page if session expired
 	    }
 
-	    // Fetch UserEntity (Customer)
-	    UserEntity user = userRepository.findById(userId)
-	            .orElseThrow(() -> new RuntimeException("User not found"));
-
-	    // Fetch UserEntity (Service Provider)
-	    UserEntity serviceProvider = userRepository.findById(providerId)
-	            .orElseThrow(() -> new RuntimeException("Service Provider not found"));
-
-	    // Fetch ServiceEntity
-	    ServiceEntity service = servicesRepository.findById(serviceId)
-	            .orElseThrow(() -> new RuntimeException("Service not found"));
-
-	    // Fetch PackageEntity
-	    PackageEntity packageEntity = packageRepository.findById(packageId)
-	            .orElseThrow(() -> new RuntimeException("Package not found"));
-
-	    // Create BookingEntity Object
-	    BookingEntity booking = new BookingEntity();
-	    booking.setUser(user);
-	    booking.setServiceProvider(serviceProvider);
-	    booking.setService(service);
-	    booking.setPackageEntity(packageEntity);
-	    booking.setBookingDate(bookingDate);
-	    booking.setBookingTime(bookingTime);
-	    booking.setStatus(Bookstatus.PENDING); // Default status
-
-	    // Save Booking
-	    bookingRepository.save(booking);
-
-	    return "redirect:/loginuserhome";
+	    List<BookingEntity> bookingList = bookingRepository.findByUser_UserId(userId);
+	    
+	    if (bookingList.isEmpty()) {
+	        System.out.println("No bookings found");
+	    } else {
+	        System.out.println("Booking list: " + bookingList.get(0).getBookingId());
+	    }
+	    
+	    model.addAttribute("bookingList", bookingList);
+	    return "BookingHistoryForUser";
 	}
 
-	
-	// open the booking history jsp for the user
-	@GetMapping("/bookinghistoryuser")
-	public String bookingHistoryForUser(HttpSession httpSession,Model model) {
-		UUID userId=(UUID)httpSession.getAttribute("userId");
-		List<BookingEntity>bookingList= bookingRepository.findByUser_UserId(userId);
-		System.out.println("Booking list"+bookingList.get(0).getBookingId());
-		model.addAttribute("bookingList", bookingList);
-		return "BookingHistoryForUser";
-	}
 	
 	//this for the service Provider
 	@GetMapping("/provider/bookings")

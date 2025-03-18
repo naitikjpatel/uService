@@ -1,7 +1,9 @@
 package com.grownited.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.grownited.dto.ForgotPasswordDto;
 import com.grownited.entity.CategoryEntity;
 import com.grownited.entity.UserEntity;
@@ -21,6 +25,8 @@ import com.grownited.repository.CategoryRepository;
 import com.grownited.repository.ServicesRepository;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.FileUploadService;
+import com.grownited.service.GeocodingService;
+import com.grownited.service.LatLongService;
 import com.grownited.service.MailService;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +48,11 @@ public class SessionController {
 
 	@Autowired
 	private MailService mailService;
+	
+
+	
+	@Autowired
+ 	Cloudinary cloudinary;
 
 	// This open the singup page
 	@GetMapping(value = { "sp", "signup" })
@@ -91,6 +102,22 @@ public class SessionController {
 		userEntity.setCreatedAt(new Date());
 		userEntity.setUpdatedAt(new Date());
 		userEntity.setStatus(Status.ACTIVE);
+		
+		
+		//uploading image
+		Map result;
+		try {
+			result = cloudinary.uploader().upload(userEntity.getProfilePic().getBytes(), ObjectUtils.emptyMap());
+
+			//System.out.println(result);
+			//System.out.println(result.get("url"));
+			userEntity.setProfilePicUrl(result.get("url").toString());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		userRepository.save(userEntity);
 		mailService.sendDemoMail(userEntity);
 
@@ -120,6 +147,11 @@ public class SessionController {
 	        case ADMIN:
 	            return "redirect:/admin/dashboard";
 	        case SERVICE_PROVIDER:
+	        	System.out.println("serviceProvider name"+foundUser.getName());
+	        	System.out.println("serviceProvider emailId"+foundUser.getEmailId());
+	        	System.out.println("serviceProvider Status"+foundUser.getStatus());
+	        
+	        	model.addAttribute("serviceProvider", foundUser);
 	            return "redirect:/service-provider/panel";
 	        default:
 	        	//category pass

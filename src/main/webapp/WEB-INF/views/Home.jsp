@@ -235,10 +235,10 @@ html, body {
 
         <!-- Navigation Links -->
         <div class="nav-links hidden md:flex items-center space-x-8 text-lg transition-all duration-300" id="nav-menu">
-            <a href="#services" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
+         <!--    <a href="#services" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
                 Services
                 <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>
-            </a>
+            </a>  -->
             <a href="aboutus" class="relative px-3 py-1 rounded-md hover:text-white hover:bg-indigo-500/20 transition-all duration-300 ease-in-out group">
                 About
                 <span class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></span>

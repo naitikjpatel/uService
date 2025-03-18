@@ -31,7 +31,7 @@ import lombok.experimental.FieldDefaults;
 public class BookingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     UUID bookingId;
 
     Date bookingDate;
@@ -59,8 +59,9 @@ public class BookingEntity {
     ServiceEntity service;
 
     // Package relationship
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="packageId", nullable = false)
     @JsonManagedReference
     PackageEntity packageEntity;
+
 }

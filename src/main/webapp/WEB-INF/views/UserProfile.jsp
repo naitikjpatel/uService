@@ -56,7 +56,7 @@ boolean isServiceProvider = entity.getRole() == Role.SERVICE_PROVIDER;
         <!-- Profile Header -->
         <div class="flex items-center space-x-6 border-b pb-6">
             <div class="relative">
-                <img id="profilePic" src="https://via.placeholder.com/100" alt="Profile" 
+                <img id="profilePic" src="<%=entity.getProfilePicUrl() %>" alt="Profile" 
                      class="rounded-full w-28 h-28 border-4 border-blue-500 object-cover cursor-pointer hover-scale"
                      onclick="openModal()">
                 <div class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2">

@@ -63,7 +63,7 @@
             <li><a href="/profile" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Profile</a></li>
             <li><a href="/servicelistprovider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Service</a></li>
             <li><a href="/provider/bookings" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Bookings</a></li>
-            <li><a href="/earnings/provider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Earnings</a></li>
+       
             <li><a href="/reviews/provider" class="sidebar-link block py-2 px-4 hover:bg-gray-700 rounded hover-scale" onclick="updateURL(event, this)">Reviews</a></li>
             <li><a href="/logout" class="block py-2 px-4 bg-red-600 hover:bg-red-700 rounded mt-6 text-center hover-scale transition duration-300">Logout</a></li>
         </ul>
@@ -93,7 +93,10 @@
         document.getElementById("contentFrame").src = url;
 
         // Local storage me URL save karna
-        localStorage.setItem("providerActivePage", url);
+        localStorage.setItem("activePage", url);
+
+        // Browser ka URL update karna
+        history.pushState({ path: url }, '', url);
 
         // Active class update karna
         updateActiveLink(url);

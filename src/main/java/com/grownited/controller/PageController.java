@@ -1,6 +1,7 @@
 package com.grownited.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grownited.entity.CategoryEntity;
+import com.grownited.entity.UserEntity;
+import com.grownited.enumD.Bookstatus;
+import com.grownited.repository.BookingRepository;
 import com.grownited.repository.CategoryRepository;
+import com.grownited.repository.UserRepository;
 import com.grownited.service.CategoryService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,7 +28,10 @@ public class PageController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+	@Autowired
+	private BookingRepository bookingRepository;
+	@Autowired
+	private UserRepository userRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
 //	opening home page
@@ -76,7 +84,16 @@ public class PageController {
 	}
 	
 	@GetMapping("/service-provider/dashboard")
-	public String serviceProviderDashboard() {
+	public String serviceProviderDashboard(Model model,HttpSession httpSession) {
+		  Optional<UserEntity> op = userRepository.findById((UUID)httpSession.getAttribute("userId"));
+		  Long totalBookings=bookingRepository.countByServiceProvider_UserId((UUID)httpSession.getAttribute("userId"));
+		  Long completedBookings=bookingRepository.countByServiceProvider_UserIdAndStatus((UUID)httpSession.getAttribute("userId"),Bookstatus.ACCEPT);
+		  Long pendingBookings=bookingRepository.countByServiceProvider_UserIdAndStatus((UUID)httpSession.getAttribute("userId"),Bookstatus.PENDING);
+		  
+		model.addAttribute("serviceProvider", op.get());
+		model.addAttribute("totalBookings",totalBookings);
+		model.addAttribute("completedBookings",completedBookings);
+		model.addAttribute("pendingBookings", pendingBookings);
 		return "ServiceProviderDashboard";
 	}
 	

@@ -56,7 +56,7 @@
 
             <!-- Right Side Form -->
             <div class="bg-white p-8 rounded-xl shadow-2xl animate-fadeInUp">
-                <form action="contactServlet" method="post" class="space-y-6">
+                <form action="/user/contactus" method="post" class="space-y-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
                         <input 

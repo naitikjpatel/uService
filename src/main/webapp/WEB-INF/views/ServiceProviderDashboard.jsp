@@ -58,7 +58,7 @@
         <div class="bg-gray-800 p-6 rounded-2xl shadow-lg card mb-6 fade-in-up" style="animation-delay: 0.1s;">
             <h2 class="text-lg font-semibold text-blue-400 mb-4">Profile Info</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <p><span class="text-gray-400">Email:</span> ${serviceProvider.email != null ? serviceProvider.email : "N/A"}</p>
+                <p><span class="text-gray-400">Email:</span> ${serviceProvider.emailId != null ? serviceProvider.emailId : "N/A"}</p>
                 <p><span class="text-gray-400">Phone:</span> ${serviceProvider.phone != null ? serviceProvider.phone : "N/A"}</p>
                 <p><span class="text-gray-400">Status:</span> ${serviceProvider.status != null ? serviceProvider.status : "N/A"}</p>
             </div>

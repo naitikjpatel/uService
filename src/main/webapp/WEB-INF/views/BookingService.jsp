@@ -48,8 +48,7 @@ body {
 				Your Service</h2>
 			<p class="text-center text-gray-500 mt-2 text-sm">Fill in the
 				details to confirm your booking</p>
-			<form action="/bookservice" method="post"
-				class="space-y-4 md:space-y-6 mt-4 md:mt-6">
+			<form action="save/bookservice" method="post" class="space-y-4 md:space-y-6 mt-4 md:mt-6">
 				<input type="hidden" name="serviceId"
 					value="${serviceWcu.serviceId}">
 					

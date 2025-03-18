@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.grownited.dto.ContactUsDto;
 import com.grownited.entity.UserEntity;
 import com.grownited.enumD.Role;
 import com.grownited.repository.UserRepository;
+import com.grownited.service.MailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +27,8 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private MailService mailService;
 	
 	@GetMapping("/userlist")
 	public String getAllUser(HttpSession httpSession,Model model) {
@@ -64,5 +68,11 @@ public class UserController {
 		return "redirect:/userlist";
 	}
 	
+	
+	@PostMapping("/user/contactus")
+	public String userContactUs(ContactUsDto contactUsDto) {
+		mailService.contactUsEmail(contactUsDto);
+		return "redirect:/";
+	}
 	
 }

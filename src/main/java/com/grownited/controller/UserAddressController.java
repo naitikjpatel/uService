@@ -16,6 +16,7 @@ import com.grownited.enumD.Role;
 import com.grownited.repository.UserAddressRepository;
 import com.grownited.repository.UserRepository;
 import com.grownited.service.GeocodingService;
+import com.grownited.service.LatLongService;
 import com.grownited.service.UserAddressService;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class UserAddressController {
 	@Autowired
 	private UserAddressRepository userAddressRepository;
 	@Autowired
-	private GeocodingService geocodingService;
+	private LatLongService latLongService;
 	
 	@PostMapping("/updateuserprofile")
 	public String updateUserProfile(@ModelAttribute UserEntity userEntity, HttpSession httpSession) {
@@ -60,27 +61,30 @@ public class UserAddressController {
 	    if (userEntity.getUserAddressEntity() != null) {
 	        Optional<UserAddressEntity> addressOp = userAddressRepository.findByUserEntity_UserId(userId);
 	        
+	        UserAddressEntity address;
+	        
 	        if (addressOp.isPresent()) {
-	            UserAddressEntity existingAddress = addressOp.get();
-	            existingAddress.setAddressLine(userEntity.getUserAddressEntity().getAddressLine());
-
-	            Double[] points = geocodingService.getLatLongFromAddress(userEntity.getUserAddressEntity().getAddressLine());
-	            existingAddress.setLatitude(points[0]);
-	            existingAddress.setLongtitude(points[1]);
-
-	            userAddressRepository.save(existingAddress);
-	            existingUser.setUserAddressEntity(existingAddress);
+	            // ✅ Existing address - update it
+	            address = addressOp.get();
+	            address.setAddressLine(userEntity.getUserAddressEntity().getAddressLine());
 	        } else {
-	            UserAddressEntity newAddress = userEntity.getUserAddressEntity();
-	            newAddress.setUserEntity(existingUser);
-
-	            Double[] points = geocodingService.getLatLongFromAddress(newAddress.getAddressLine());
-	            newAddress.setLatitude(points[0]);
-	            newAddress.setLongtitude(points[1]);
-
-	            userAddressRepository.save(newAddress);
-	            existingUser.setUserAddressEntity(newAddress);
+	            // ✅ New address - create it
+	            address = userEntity.getUserAddressEntity();
+	            address.setUserEntity(existingUser);
 	        }
+
+	        // ✅ Fetch lat/long only after setting updated address
+	        Double[] points = latLongService.getLatLongFromAddress(address.getAddressLine());
+	        
+	        // Debugging to check if correct lat/long is fetched
+	        System.out.println("Updated Address: " + address.getAddressLine());
+	        System.out.println("Fetched Latitude: " + points[0] + ", Longitude: " + points[1]);
+
+	        address.setLatitude(points[0]);
+	        address.setLongtitude(points[1]);
+
+	        userAddressRepository.save(address);
+	        existingUser.setUserAddressEntity(address);
 	    }
 
 	    // ✅ Update status only if user is a SERVICE_PROVIDER
@@ -93,6 +97,7 @@ public class UserAddressController {
 	    
 	    return "redirect:/profile";
 	}
+
 
 	/*@PostMapping("/updateuserprofile")
 	public String updateUserAddress(UserAddressEntity addressEntity, HttpSession httpSession) {

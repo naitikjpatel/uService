@@ -11,15 +11,18 @@ import com.grownited.enumD.Role;
 import com.grownited.enumD.Status;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -35,9 +38,10 @@ import lombok.experimental.FieldDefaults;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.UUID)
 	UUID userId;
 	String name;
+	@Column(unique = true)
 	String emailId;
 	String phone;
 	String password;
@@ -45,7 +49,8 @@ public class UserEntity {
 	Role role;
 	@Enumerated(EnumType.STRING)
 	Status status;
-//	MultipartFile profilePic;
+	@Transient
+	MultipartFile profilePic;
 	String profilePicUrl;
 	Date createdAt;
 	Date updatedAt;

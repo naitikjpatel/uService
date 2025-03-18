@@ -88,7 +88,7 @@ if (user == null) {
             </h1>
             <div class="flex space-x-8 text-lg">
                 <a href="#" class="hover:text-yellow-300 transition duration-300">Home</a>
-                <a href="/categories" class="hover:text-yellow-300 transition duration-300">Categories</a>
+                <a href="#categories" class="hover:text-yellow-300 transition duration-300">Categories</a>
             </div>
             <div class="flex items-center space-x-6">
                 <a href="/profile" class="flex items-center space-x-2 hover:text-yellow-300 transition duration-300">
@@ -96,7 +96,7 @@ if (user == null) {
                     <span>Profile</span>
                 </a>
                  <div>
-              <a href="bookinghistoryuser" class="flex items-center space-x-2 text-black-700 hover:text-white-900">
+              <a href="/bookinghistoryuser" class="flex items-center space-x-2 text-black-700 hover:text-white-900">
     <i class="fa-solid fa-calendar-check"></i>
     <span>My Bookings</span>
 </a>
@@ -113,7 +113,7 @@ if (user == null) {
             <section class="fade-in-up">
                 <h2 class="text-5xl font-bold mb-4">Welcome Back!</h2>
                 <p class="text-xl leading-relaxed max-w-2xl">Your one-stop solution for home services. Connect with verified professionals for plumbing, electrical work, salon services, and more—all at your fingertips.</p>
-                <a href="#" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 hover-scale">Explore Services</a>
+                <a href="#categories" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 hover-scale">Explore Services</a>
             </section>
         </div>
     </main>
@@ -158,7 +158,7 @@ if (user == null) {
     <!-- Categories Section -->
   <!-- List of categories -->
    <!-- Categories Section -->
-<div class="max-w-6xl mx-auto py-10 px-4">
+<div class="max-w-6xl mx-auto py-10 px-4" id="categories">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Service Categories</h1>
 
     <!-- Search Filter Input -->

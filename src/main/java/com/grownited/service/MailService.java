@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.grownited.dto.ContactUsDto;
 import com.grownited.entity.UserEntity;
 
 import jakarta.mail.MessagingException;
@@ -82,6 +83,21 @@ public class MailService {
 		mailMessage.setTo(userMail);
 		
 		javaMailSender.send(mailMessage);
+	
+}
+	
+public void contactUsEmail(ContactUsDto contactUsDto) {
+
+		
+		String to = "tejasshah2k19@gmail.com";
+		
+		SimpleMailMessage mailMessage=new SimpleMailMessage();
+		mailMessage.setSubject(contactUsDto.getSubject());
+		mailMessage.setText("Hello " +contactUsDto.getName()+",\n"+ contactUsDto.getMessage());
+		mailMessage.setFrom(contactUsDto.getEmail());
+		mailMessage.setTo(to);
+		
+//		javaMailSender.send(mailMessage);
 	
 }
 	

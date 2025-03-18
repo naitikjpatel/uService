@@ -49,7 +49,7 @@
         </div>
 
         <!-- Form -->
-        <form action="addcategory" method="post" class="space-y-6">
+        <form action="addcategory" method="post" enctype="multipart/form-data" class="space-y-6">
             <!-- Category Name -->
             <div>
                 <label for="categoryName" class="block text-gray-700 font-semibold mb-2">Category Name</label>
@@ -64,6 +64,13 @@
                 <textarea id="categoryDescription" name="categoryDescription" rows="4" required 
                           class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" 
                           placeholder="Describe the category..."></textarea>
+            </div>
+
+            <!-- Upload Image -->
+            <div>
+                <label for="categoryImage" class="block text-gray-700 font-semibold mb-2">Upload Image</label>
+                <input type="file" id="categoryImage" name="categoryImage" accept="image/*" required
+                       class="w-full px-4 py-3 bg-gray-50 text-gray-800 text-sm border border-gray-200 rounded-lg focus:bg-transparent focus:outline-none placeholder-gray-500" />
             </div>
 
             <!-- Submit Button -->
